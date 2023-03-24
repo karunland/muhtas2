@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+
+<h1 id="sensor-data"></h1>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function updateSensorData() {
+        $.ajax({
+            url: '/Monitor/sensor',
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                $('#sensor-data').text(JSON.stringify(data));
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        
+        updateSensorData();
+
+        setInterval(function () {
+            updateSensorData();
+        }, 500); 
+    });
+</script>
