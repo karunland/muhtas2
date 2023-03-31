@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="DtoModel\" />
-    <Folder Include="EnumModel\" />
   </ItemGroup>
 
 </Project>

@@ -19,8 +19,7 @@ namespace DataAccesss.Concrete
                 "integrated security=true;");
             base.OnConfiguring(optionsBuilder);
         }
-        public DbSet<ColorSensor> ColorSensors { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<DistanceSensor> DistanceSensors { get; set; }
+        public DbSet<Mcu> Mcu { get; set; }
     }
 }

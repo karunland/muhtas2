@@ -8,7 +8,7 @@ namespace Entity.DbModel
 {
     public class BaseEntity
     {
-        public DateTime CreatedTime { get; set; } = DateTime.Now;
+        public DateTime CreatedTime { get; set; } = DateTime.Parse(DateTime.Now.ToString());
         public bool IsDeleted { get; set; } = false;
     }
 }
