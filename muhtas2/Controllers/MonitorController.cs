@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using DataAccesss.Abstract;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Net;
@@ -6,17 +7,24 @@ using System.Net.Sockets;
 using Microsoft.AspNetCore.Http;
 using Calabonga.Mvc.ApiExtensions;
 using System.Text.Json.Nodes;
+using DataAccesss.EntityFramework;
+using DataAccesss.Concrete;
+using Entity.DbModel;
 
 namespace muhtas2.Controllers
 {
     public class MonitorController : Controller
     {
+        //IMonitorDal _monitorDal;
+        //public MonitorController(IMonitorDal monitorDal)
+        //{
+        //    _monitorDal = monitorDal;
+        //}
         public IActionResult Index()
         {
             return View();
         }
 
-        //[Route("api/[controller]")]
         [HttpPost]
         public IActionResult sensor()
         {
@@ -34,12 +42,6 @@ namespace muhtas2.Controllers
                 try
                 {
                     jsonObject = JObject.Parse(udpData);
-                    int redValue = (int)(jsonObject?["red"] ?? 0);
-                    int blueValue = (int)(jsonObject?["blue"] ?? 0);
-                    int greenValue = (int)(jsonObject?["green"] ?? 0);
-                    int distanceValue = (int)(jsonObject?["distance"] ?? 0);
-                    
-                    //Console.WriteLine($"red={redValue}, blue={blueValue}, green={greenValue}, distance={distanceValue}");
                 }
                 catch (JsonReaderException ex)
                 {
@@ -54,10 +56,30 @@ namespace muhtas2.Controllers
             {
                 listener.Close();
             }
-            string item = JsonConvert.SerializeObject(jsonObject);
+            if (jsonObject != null)
+            {
+                using (var c = new Context())
+                {
+                    string item = JsonConvert.SerializeObject(jsonObject);
 
-            return Ok(item);
+                    Mcu mitem = new Mcu
+                    {
+                        Blue = (UInt32)(jsonObject?["blue"] ?? 0),
+                        Red = (UInt32)(jsonObject?["red"] ?? 0),
+                        Green = (UInt32)(jsonObject?["green"] ?? 0),
+                        Distance = (UInt32)(jsonObject?["distance"] ?? 0)
+                    };
 
+                    c.Add(mitem);
+                    c.SaveChanges();
+
+                    return Ok(item);
+                }
+            }
+            return Ok();
+
+            //var item = _monitorDal.ReadAll();
+            //return Ok(item);
         }
     }
 }

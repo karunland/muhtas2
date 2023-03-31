@@ -1,12 +1,48 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
+<div class="d-flex justify-content-center">
 
-<h1 id="sensor-data"></h1>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="w-100">Red</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 id="red"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Green</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 id="green"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Blue</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 id="blue"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Distance</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 id="distance"></h1>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     function updateSensorData() {
         $.ajax({
@@ -14,7 +50,10 @@
             type: 'POST',
             dataType: 'json',
             success: function (data) {
-                $('#sensor-data').text(JSON.stringify(data));
+                $('#red').text(data["red"]);
+                $('#blue').text(data["blue"]);
+                $('#green').text(data["green"]);
+                $('#distance').text(data["distance"]);
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -23,11 +62,11 @@
     }
 
     $(document).ready(function () {
-        
+
         updateSensorData();
 
         setInterval(function () {
             updateSensorData();
-        }, 500); 
+        }, 500);
     });
 </script>
