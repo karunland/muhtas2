@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccesss.Abstract
 {
-    public class IUserDal
+    public interface IUserDal
     {
     }
 }

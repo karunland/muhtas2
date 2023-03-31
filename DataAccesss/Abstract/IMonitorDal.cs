@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccesss.Abstract
 {
-    public class IMonitorDal
+    public interface IMonitorDal
     {
+        string ReadAll();
     }
 }
