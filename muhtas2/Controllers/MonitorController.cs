@@ -31,7 +31,7 @@ namespace muhtas2.Controllers
             var port = 5000;
             JObject jsonObject = new JObject();
             var listener = new UdpClient(port);
-            IPAddress ipAddress = IPAddress.Parse("192.168.0.15");
+            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
             IPEndPoint groupEP = new IPEndPoint(ipAddress, port);
             try
             {
