@@ -3,39 +3,115 @@
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
 <div class="d-flex justify-content-center">
+    <style>
+        .rgb-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgb(255, 0, 0);
+            margin: 0 auto;
+        }
 
-    <div class="col-md-4">
+        .rgb-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            padding: 5px;
+        }
+
+        .card {
+            margin: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            margin: 20px 0;
+            width: 100%;
+            background-color: #ddd;
+            height: 5px;
+        }
+
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                background-color: #007bff;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+
+            input[type="range"]:focus {
+                outline: none;
+            }
+
+        .card.h-100 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .col-md-4 {
+            height: 600px;
+            /*align-items: center;*/
+        }
+    </style>
+
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
-                <h1 class="w-100">Red</h1>
-            </div>
-            <div class="col-md-6">
-                <h1 id="red"></h1>
-            </div>
+            <div class="col justify-content-center"><div class="text-center h1">RGB</div></div>
+            <div class="col justify-content-center"><div class="text-center h1">Distance</div></div>
+            <div class="col justify-content-center"><div class="text-center h1">Details</div></div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <h1>Green</h1>
+            <div class="col-md-4">
+                <div class="rgb-circle" style="width: 300px;height: 300px;">
+                    <span class="rgb-text" id="redValue"></span>
+                    <span class="rgb-text" id="greenValue"></span>
+                    <span class="rgb-text" id="blueValue"></span>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h1 id="green"></h1>
+            <div class="col-md-4">
+                <div class="card d-flex justify-content-center align-items-center">
+                    <input type="range" class="form-range" min="0" max="100" id="distanceSlider">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Distance Sensor Data</h5>
+                        <p class="card-text ">Distance: <span id="distance"></span></p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h1>Blue</h1>
+            <div class="col-md-4 row">
+                <div class="col text-end">
+                    <p class="rgb-text text-dark">Red:</p>
+                    <p class="rgb-text text-dark">Green:</p>
+                    <p class="rgb-text text-dark">Blue:</p>
+                    <p class="rgb-text text-dark">Distance:</p>
+                    <p class="rgb-text text-dark">Server Address:</p>
+                    <p class="rgb-text text-dark">Server Port:</p>
+                </div>
+                <div class="col">
+                    <p class="rgb-text text-danger" id="_redValue"></p>
+                    <p class="rgb-text text-danger" id="_greenValue"></p>
+                    <p class="rgb-text text-danger" id="_blueValue"></p>
+                    <p class="rgb-text text-danger" id="_distanceValue"></p>
+                    <p class="rgb-text text-danger" id="_ipValue"></p>
+                    <p class="rgb-text text-danger" id="_portValue"></p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h1 id="blue"></h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h1>Distance</h1>
-            </div>
-            <div class="col-md-6">
-                <h1 id="distance"></h1>
-            </div>
+
         </div>
     </div>
 
@@ -46,14 +122,33 @@
 <script>
     function updateSensorData() {
         $.ajax({
-            url: '/Monitor/sensor',
+            url: '/monitor/sensor',
             type: 'POST',
             dataType: 'json',
             success: function (data) {
-                $('#red').text(data["red"]);
-                $('#blue').text(data["blue"]);
-                $('#green').text(data["green"]);
-                $('#distance').text(data["distance"]);
+                //$('#redValue').text(data["red"]);
+                //$('#greenValue').text(data["green"]);
+                //$('#blueValue').text(data["blue"]);
+
+                // Get the maximum RGB value
+                let maxRGB = Math.max(data["red"], data["green"], data["blue"]);
+                console.log(data);
+                // Calculate the color values
+
+                let redValue = data["red"] / maxRGB * 255;
+                let greenValue = data["green"] / maxRGB * 255;
+                let blueValue = data["blue"] / maxRGB * 255;
+
+                $("#_redValue").text(data["red"]);
+                $("#_greenValue").text(data["green"]);
+                $("#_blueValue").text(data["blue"]);
+                $("#_distanceValue").text(data["distance"]);
+                $("#_ipValue").text(data["ipAddress"]);
+                $("#_portValue").text(data["port"]);
+                $("#distanceSlider").val(data["distance"]*2.5);
+
+                // Set the background color of the circle
+                $('.rgb-circle').css('background-color', data["biggest"]);
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -62,11 +157,12 @@
     }
 
     $(document).ready(function () {
-
         updateSensorData();
-
         setInterval(function () {
             updateSensorData();
         }, 500);
+        //$('#slider').on('input', function () {
+        //    var distance = $(this).val
+        //}
     });
 </script>
