@@ -31,7 +31,7 @@ namespace muhtas2.Controllers
             var port = 5000;
             JObject jsonObject = new JObject();
             var listener = new UdpClient(port);
-            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress ipAddress = IPAddress.Parse("192.168.0.15");
             IPEndPoint groupEP = new IPEndPoint(ipAddress, port);
             try
             {
@@ -60,7 +60,8 @@ namespace muhtas2.Controllers
             {
                 using (var c = new Context())
                 {
-                    string item = JsonConvert.SerializeObject(jsonObject);
+                    jsonObject["ipAddress"] = groupEP.Address.ToString();
+                    jsonObject["port"] = groupEP.Port.ToString();
 
                     Mcu mitem = new Mcu
                     {
@@ -70,10 +71,17 @@ namespace muhtas2.Controllers
                         Distance = (UInt32)(jsonObject?["distance"] ?? 0)
                     };
 
+                    if (mitem.Blue > mitem.Red && mitem.Blue > mitem.Green)
+                        jsonObject["biggest"] = "blue";
+                    else if (mitem.Red > mitem.Blue && mitem.Red > mitem.Green)
+                        jsonObject["biggest"] = "red";
+                    else
+                        jsonObject["biggest"] = "green";
+
                     c.Add(mitem);
                     c.SaveChanges();
 
-                    return Ok(item);
+                    return Ok(JsonConvert.SerializeObject(jsonObject));
                 }
             }
             return Ok();
