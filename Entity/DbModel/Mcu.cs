@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,8 +11,9 @@ namespace Entity.DbModel
 {
     public class Mcu : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        [BsonId]
+        public BsonObjectId Id { get; set; }
         public UInt32 Red { get; set; }
         public UInt32 Green { get; set; }
         public UInt32 Blue { get; set; }
