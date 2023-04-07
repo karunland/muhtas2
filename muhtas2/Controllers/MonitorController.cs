@@ -10,6 +10,7 @@ using System.Text.Json.Nodes;
 using DataAccesss.EntityFramework;
 using DataAccesss.Concrete;
 using Entity.DbModel;
+using MongoDB.Driver;
 
 namespace muhtas2.Controllers
 {
@@ -58,31 +59,38 @@ namespace muhtas2.Controllers
             }
             if (jsonObject != null)
             {
-                using (var c = new Context())
+                jsonObject["ipAddress"] = groupEP.Address.ToString();
+                jsonObject["port"] = groupEP.Port.ToString();
+
+                Mcu mitem = new Mcu
                 {
-                    jsonObject["ipAddress"] = groupEP.Address.ToString();
-                    jsonObject["port"] = groupEP.Port.ToString();
+                    Blue = (UInt32)(jsonObject?["blue"] ?? 0),
+                    Red = (UInt32)(jsonObject?["red"] ?? 0),
+                    Green = (UInt32)(jsonObject?["green"] ?? 0),
+                    Distance = (UInt32)(jsonObject?["distance"] ?? 0)
+                };
 
-                    Mcu mitem = new Mcu
-                    {
-                        Blue = (UInt32)(jsonObject?["blue"] ?? 0),
-                        Red = (UInt32)(jsonObject?["red"] ?? 0),
-                        Green = (UInt32)(jsonObject?["green"] ?? 0),
-                        Distance = (UInt32)(jsonObject?["distance"] ?? 0)
-                    };
+                if (mitem.Blue > mitem.Red && mitem.Blue > mitem.Green)
+                    jsonObject["biggest"] = "blue";
+                else if (mitem.Red > mitem.Blue && mitem.Red > mitem.Green)
+                    jsonObject["biggest"] = "red";
+                else
+                    jsonObject["biggest"] = "green";
 
-                    if (mitem.Blue > mitem.Red && mitem.Blue > mitem.Green)
-                        jsonObject["biggest"] = "blue";
-                    else if (mitem.Red > mitem.Blue && mitem.Red > mitem.Green)
-                        jsonObject["biggest"] = "red";
-                    else
-                        jsonObject["biggest"] = "green";
+                //using (var c = new Context())
+                //{
+                //    c.Add(mitem);
+                //    c.SaveChanges();
+                //}
 
-                    c.Add(mitem);
-                    c.SaveChanges();
+                var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
+                var client = new MongoClient(settings);
+                var database = client.GetDatabase("test");
+                var collection = database.GetCollection<Mcu>("Mcu");
 
-                    return Ok(JsonConvert.SerializeObject(jsonObject));
-                }
+                collection.InsertOne(mitem);
+
+                return Ok(JsonConvert.SerializeObject(jsonObject));
             }
             return Ok();
 
