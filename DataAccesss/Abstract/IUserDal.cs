@@ -8,5 +8,6 @@ namespace DataAccesss.Abstract
 {
     public interface IUserDal
     {
+
     }
 }

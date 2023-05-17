@@ -11,21 +11,13 @@ using DataAccesss.EntityFramework;
 using DataAccesss.Concrete;
 using Entity.DbModel;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Authorization;
 
 namespace muhtas2.Controllers
 {
+    [AllowAnonymous]
     public class MonitorController : Controller
     {
-        //IMonitorDal _monitorDal;
-        //public MonitorController(IMonitorDal monitorDal)
-        //{
-        //    _monitorDal = monitorDal;
-        //}
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost]
         public IActionResult sensor()
         {
@@ -77,18 +69,12 @@ namespace muhtas2.Controllers
                 else
                     jsonObject["biggest"] = "green";
 
-                //using (var c = new Context())
-                //{
-                //    c.Add(mitem);
-                //    c.SaveChanges();
-                //}
+                //var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
+                //var client = new MongoClient(settings);
+                //var database = client.GetDatabase("test");
+                //var collection = database.GetCollection<Mcu>("Mcu");
 
-                var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
-                var client = new MongoClient(settings);
-                var database = client.GetDatabase("test");
-                var collection = database.GetCollection<Mcu>("Mcu");
-
-                collection.InsertOne(mitem);
+                //collection.InsertOne(mitem);
 
                 return Ok(JsonConvert.SerializeObject(jsonObject));
             }
