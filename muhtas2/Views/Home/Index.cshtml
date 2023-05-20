@@ -2,158 +2,102 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
-<div class="d-flex justify-content-center">
-    <style>
-        .rgb-circle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: rgb(255, 0, 0);
-            margin: 0 auto;
-        }
+@model Entity.DbModel.MonitorShow
 
-        .rgb-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            padding: 5px;
-        }
-
-        .card {
-            margin: 20px;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            margin: 20px 0;
-            width: 100%;
-            background-color: #ddd;
-            height: 5px;
-        }
-
-            input[type="range"]::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                appearance: none;
-                width: 20px;
-                height: 20px;
-                background-color: #007bff;
-                cursor: pointer;
-                border-radius: 50%;
-            }
-
-            input[type="range"]:focus {
-                outline: none;
-            }
-
-        .card.h-100 {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-
-        .col-md-4 {
-            height: 600px;
-            /*align-items: center;*/
-        }
-    </style>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col justify-content-center"><div class="text-center h1">RGB</div></div>
-            <div class="col justify-content-center"><div class="text-center h1">Distance</div></div>
-            <div class="col justify-content-center"><div class="text-center h1">Details</div></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="rgb-circle" style="width: 300px;height: 300px;">
-                    <span class="rgb-text" id="redValue"></span>
-                    <span class="rgb-text" id="greenValue"></span>
-                    <span class="rgb-text" id="blueValue"></span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card d-flex justify-content-center align-items-center">
-                    <input type="range" class="form-range" min="0" max="100" id="distanceSlider">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Distance Sensor Data</h5>
-                        <p class="card-text ">Distance: <span id="distance"></span></p>
+<div class="c1 d-flex justify-content-center">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4 mt-5">
+                <div id="RgbSection">
+                    <div class="row d-flex justify-content-center ">
+                        <div class="text-center h1">RGB Values</div>
+                    </div>
+                    <div class="row">
+                        <div class="rgb-circle" style="width: 200px;height: 200px;">
+                            <span id="redValue"></span>
+                            <span id="greenValue"></span>
+                            <span id="blueValue"></span>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <p class="rgb-text ">Red:<p class="rgb-text text-danger" id="_redValue"></p></p>
+                        <p class="rgb-text ">Green:<p class="rgb-text text-danger" id="_greenValue"></p></p>
+                        <p class="rgb-text ">Blue:<p class="rgb-text text-danger" id="_blueValue"></p></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 row">
-                <div class="col text-end">
-                    <p class="rgb-text text-dark">Red:</p>
-                    <p class="rgb-text text-dark">Green:</p>
-                    <p class="rgb-text text-dark">Blue:</p>
-                    <p class="rgb-text text-dark">Distance(cm):</p>
-                    <p class="rgb-text text-dark">Server Address:</p>
-                    <p class="rgb-text text-dark">Server Port:</p>
-                </div>
-                <div class="col">
-                    <p class="rgb-text text-danger" id="_redValue"></p>
-                    <p class="rgb-text text-danger" id="_greenValue"></p>
-                    <p class="rgb-text text-danger" id="_blueValue"></p>
-                    <p class="rgb-text text-danger" id="_distanceValue"></p>
-                    <p class="rgb-text text-danger" id="_ipValue"></p>
-                    <p class="rgb-text text-danger" id="_portValue"></p>
+
+            <div class="col-md-4 mt-5">
+                <div id="DistanceSection">
+                    <div class="row  d-flex justify-content-center">
+                        <div class="text-center h1 ">Distance</div>
+                    </div>
+                    <div class="card d-flex justify-content-center  ">
+                        <input type="range" class="form-range" min="0" max="100" id="distanceSlider">
+                        <div class="card-body text-center">
+                            @*<h5 class="card-title">Distance Sensor Data</h5>*@
+                            <p class="card-text ">Distance: <span class="distance"></span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <div class="col-md-4 mt-5">
+                <div id="DetailsSection">
+                    <div class="row  d-flex justify-content-center">
+                        <div class="text-center h1">Details</div>
+                    </div>
+                    <ul>
+                        <li><p class="rgb-text" id="_distanceValue"></p></li>
+                        <li><p class="rgb-text" id="_ipValue"></p></li>
+                        <li><p class="rgb-text" id="_portValue"></p></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    if (!@Model.RgbSection.ToString().ToLower()) {
+        $('#RgbSection').addClass('d-none');
+    }
+    if (!@Model.DistanceSection.ToString().ToLower()) {
+        $('#DistanceSection').addClass('d-none');
+    }
+    if (!@Model.DetailsSection.ToString().ToLower()) {
+        $('#DetailsSection').addClass('d-none');
+    }
+</script>
+
+
+<script>
     function updateSensorData() {
-        $.ajax({
-            url: '/monitor/sensor',
-            type: 'POST',
-            dataType: 'json',
-            success: function (data) {
-                //$('#redValue').text(data["red"]);
-                //$('#greenValue').text(data["green"]);
-                //$('#blueValue').text(data["blue"]);
-
-                // Get the maximum RGB value
-                let maxRGB = Math.max(data["red"], data["green"], data["blue"]);
-                console.log(data);
-                // Calculate the color values
-
-                let redValue = data["red"] / maxRGB * 255;
-                let greenValue = data["green"] / maxRGB * 255;
-                let blueValue = data["blue"] / maxRGB * 255;
-
-                $("#_redValue").text(data["red"]);
-                $("#_greenValue").text(data["green"]);
-                $("#_blueValue").text(data["blue"]);
-                $("#_distanceValue").text(data["distance"]);
-                $("#_ipValue").text(data["ipAddress"]);
-                $("#_portValue").text(data["port"]);
-                $("#distanceSlider").val(data["distance"]*2.5);
-
-                // Set the background color of the circle
-                $('.rgb-circle').css('background-color', data["biggest"]);
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-            }
-        });
+        if (@Model.RgbSection.ToString().ToLower()
+                && @Model.DistanceSection.ToString().ToLower()
+                && @Model.DetailsSection.ToString().ToLower()) {
+            $.ajax({
+                url: '/monitor/sensor',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    $("#_redValue").text(data["red"]);
+                    $("#_greenValue").text(data["green"]);
+                    $("#_blueValue").text(data["blue"]);
+                    $("#_distanceValue").text("Distance(cm): " + data["distance"]);
+                    $("#_ipValue").text("Server Address: " + data["ipAddress"]);
+                    $("#_portValue").text("Port: " + data["port"]);
+                    $("#distanceSlider").val(data["distance"] * 2.5);
+                    $('.rgb-circle').css('background-color', data["biggest"]);
+                    $('span.distance').text(data["distance"] + " cm");
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
     }
 
     $(document).ready(function () {
@@ -161,8 +105,5 @@
         setInterval(function () {
             updateSensorData();
         }, 2000);
-        //$('#slider').on('input', function () {
-        //    var distance = $(this).val
-        //}
     });
 </script>

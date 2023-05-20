@@ -1,7 +1,9 @@
-﻿using Entity.DbModel;
+﻿using DataAccesss.Concrete;
+using Entity.DbModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver.Core.Operations;
 using System.Security.Claims;
 
 namespace muhtas2.Controllers
@@ -35,14 +37,23 @@ namespace muhtas2.Controllers
                 return NotFound();
 
             var claims = new List<Claim> {
-                    new Claim (ClaimTypes.Name, user.FirstName)
+                    new Claim (ClaimTypes.Name, user.Mail)
             };
 
             var userIdentity = new ClaimsIdentity(claims, "a");
             ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
             await HttpContext.SignInAsync(principal);
 
-            HttpContext.Session.SetString("username", user.FirstName);
+            HttpContext.Session.SetString("Name", user.Mail);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost, Route("Logout/")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            HttpContext.Session.Clear();
+
             return RedirectToAction("Index", "Home");
         }
     }

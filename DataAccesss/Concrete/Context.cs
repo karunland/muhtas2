@@ -20,6 +20,7 @@ namespace DataAccesss.Concrete
             base.OnConfiguring(optionsBuilder);
         }
         public DbSet<User> User { get; set; }
-        public DbSet<Mcu> Mcu { get; set; }
+        public DbSet<MonitorShow> MonitorShow { get; set; }
+        //public DbSet<Mcu> Mcu { get; set; }
     }
 }

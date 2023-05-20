@@ -12,7 +12,7 @@ namespace Entity.DbModel
     public class Mcu : BaseEntity
     {
         //[Key]
-        [BsonId]
+        //[BsonId]
         public BsonObjectId Id { get; set; }
         public UInt32 Red { get; set; }
         public UInt32 Green { get; set; }
