@@ -1,6 +1,7 @@
 ﻿@using DataAccesss.Abstract
 @using Entity.DbModel
 @inject ILoginDal tokenService;
+
 @{
     User LoginUser = tokenService.GetLoginUser() ?? new Entity.DbModel.User() {isAdmin = false};
     var i = 9;
@@ -9,7 +10,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-primary topbar mb-4 static-top shadow ">
     <div class="container">
 
-        <a class="navbar-brand" href="#">MuhTas-2</a>
+        <a class="navbar-brand" href="/Home">MuhTas-2</a>
         @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         <!-- Sidebar Toggle (Topbar) -->
@@ -20,14 +21,15 @@
         <a href="#" class="text-white">yonelndirme</a>
         </li>
         </ul>*@
-        @if (LoginUser.isAdmin)
+        @if (LoginUser.Id > 0)
         {
             <ul class="navbar-nav d-flex justify-content-center">
                 <li class="nav-item ml-auto">
-                    <a href="#" class="text-white">@LoginUser.FirstName @LoginUser.LastName</a>
+                    <a href="/User/EditProfile" class="text-white">@LoginUser.FirstName @LoginUser.LastName</a>
                 </li>
             </ul>
         }
+
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
             @*<a class="nav-item" href="#">aaa</a>*@
@@ -38,12 +40,14 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-lg"></i>
                     </a>
+
                     <ul class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownMenuButton2">
-                        <li><a class="dropdown-item" href="/Home/Devices"> <i class="fas fa-setting pe-2 mx-2"></i>Devices</a></li>
-                        @if (LoginUser.isAdmin)
+                        <li><a class="dropdown-item" href="/Home/Devices"> <i class="fas fa-cog pe-2 mx-2"></i>Devices</a></li>
+                        @if (LoginUser.Id > 0)
                         {
                             <li><a class="dropdown-item" href="/Home/Settings"> <i class="fas fa-cog pe-2 mx-2"></i>Settings</a></li>
-                            <li><button class="dropdown-item" onclick="confirmLogout()" type="button"> <i class="fas fa-door-open pe-2 mx-2"></i>Logout</button></li>
+                            <li><a class="dropdown-item" href="/User/EditProfile"> <i class="fas fa-cog pe-2 mx-2"></i>Edit Profile</a></li>
+                            <li><button class="dropdown-item" onclick="confirmLogout()" type="button"><i class="fas fa-door-open pe-2 mx-2"></i>Logout</button></li>
                         }
                         else
                         {
@@ -55,7 +59,6 @@
         </ul>
     </div>
 </nav>
-
 
 <script>
     function confirmLogout() {
@@ -72,12 +75,10 @@
                         type: "POST",
                         url: "/Logout/",
                         success: function (data) {
-                            if (data.success) {
                                 swal("İşlem Tamamlandı", "Çıkış işlemi başarıyla tamamlandı.", "success")
                                     .then(() => {
                                         window.location.href = "/home/index";
                                     });
-                            }
                         },
                         error: function () {
                             swal("Hata", "Çıkış işlemi gerçekleştirilemedi.", "error");

@@ -79,7 +79,7 @@
                 && @Model.DistanceSection.ToString().ToLower()
                 && @Model.DetailsSection.ToString().ToLower()) {
             $.ajax({
-                url: '/monitor/sensor',
+                url: '/monitor/sensor/demo',
                 type: 'POST',
                 dataType: 'json',
                 success: function (data) {

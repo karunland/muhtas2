@@ -10,10 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// ders 46
 builder.Services.AddSession();
 
-// ders 45
 builder.Services.AddMvc(config =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -26,6 +24,7 @@ builder.Services.AddMvc();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IHomePageDal, EfHomePageDal>();
+builder.Services.AddScoped<IUserDal, EfUserDal>();
 
 builder.Services.AddTransient<ILoginDal, EfLoginDal>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
@@ -58,6 +57,5 @@ app.MapControllerRoute(
 
 app.UseAuthentication();
 
-// ders 46
 app.UseSession();
 app.Run();

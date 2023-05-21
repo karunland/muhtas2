@@ -88,6 +88,8 @@ namespace muhtas2.Controllers
             Random rnd = new Random();
             JObject jsonObject = new JObject();
             jsonObject["distance"] = rnd.Next(40);
+            jsonObject["ipAddress"] = "X.X.X.X";
+            jsonObject["port"] = "XXXX";
             jsonObject["red"] = rnd.Next(180);
             jsonObject["green"] = rnd.Next(180);
             jsonObject["blue"] = rnd.Next(180);
@@ -99,7 +101,7 @@ namespace muhtas2.Controllers
             else
                 jsonObject["biggest"] = "green";
 
-            return Ok(jsonObject);
+            return Ok(JsonConvert.SerializeObject(jsonObject));
         }
     }
 }
