@@ -27,6 +27,7 @@ builder.Services.AddScoped<IHomePageDal, EfHomePageDal>();
 builder.Services.AddScoped<IUserDal, EfUserDal>();
 
 builder.Services.AddTransient<ILoginDal, EfLoginDal>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     x => x.LoginPath = "/Login/Index"
 );
@@ -42,7 +43,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
+// error page redirection
+app.UseStatusCodePagesWithReExecute("/ErrorPage", "?code={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
