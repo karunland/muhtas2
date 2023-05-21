@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DataAccesss.Abstract;
+using DataAccesss.Concrete;
+using Entity.DbModel;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +39,7 @@ namespace DataAccesss.EntityFramework
         public async Task<int> IsAdminUser(User Model)
         {
             using (var context = new Context())
-    {
+            {
                 var person = await context.User.AsNoTracking().Where(x => x.Mail == Model.Mail && !x.IsDeleted).FirstOrDefaultAsync();
                 if (person == null) return 1;
                 return 0;

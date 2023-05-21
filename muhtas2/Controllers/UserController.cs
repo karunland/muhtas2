@@ -1,5 +1,6 @@
 ﻿using DataAccesss.Abstract;
-﻿using Microsoft.AspNetCore.Mvc;
+using Entity.DbModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace muhtas2.Controllers
 {
