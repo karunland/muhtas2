@@ -3,7 +3,7 @@
 @inject ILoginDal tokenService;
 
 @{
-    User LoginUser = tokenService.GetLoginUser() ?? new Entity.DbModel.User() {isAdmin = false};
+    User LoginUser = tokenService.GetLoginUser().GetAwaiter().GetResult() ?? new Entity.DbModel.User() { isAdmin = false };
     var i = 9;
 }
 
@@ -75,10 +75,10 @@
                         type: "POST",
                         url: "/Logout/",
                         success: function (data) {
-                                swal("İşlem Tamamlandı", "Çıkış işlemi başarıyla tamamlandı.", "success")
-                                    .then(() => {
-                                        window.location.href = "/home/index";
-                                    });
+                            swal("İşlem Tamamlandı", "Çıkış işlemi başarıyla tamamlandı.", "success")
+                                .then(() => {
+                                    window.location.href = "/home/index";
+                                });
                         },
                         error: function () {
                             swal("Hata", "Çıkış işlemi gerçekleştirilemedi.", "error");
