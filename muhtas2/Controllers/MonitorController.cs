@@ -93,7 +93,7 @@ namespace muhtas2.Controllers
             jsonObject["red"] = rnd.Next(180);
             jsonObject["green"] = rnd.Next(180);
             jsonObject["blue"] = rnd.Next(180);
-
+                
             if ((int)jsonObject["blue"] > (int)jsonObject["red"] && (int)jsonObject["blue"] > (int)jsonObject["green"])
                 jsonObject["biggest"] = "blue";
             else if ((int)jsonObject["red"] > (int)jsonObject["blue"] && (int)jsonObject["red"] > (int)jsonObject["green"])
