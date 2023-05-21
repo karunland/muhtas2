@@ -1,27 +1,23 @@
-﻿using DataAccesss.Concrete;
+﻿using DataAccesss.Abstract;
+using DataAccesss.Concrete;
 using Entity.DbModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver.Core.Operations;
 using System.Security.Claims;
+using ZstdSharp.Unsafe;
 
 namespace muhtas2.Controllers
 {
     [AllowAnonymous]
     public class LoginController : Controller
     {
-        public static List<User> writers = new List<User>
+        private readonly IUserDal _userDal;
+        public LoginController(IUserDal userDal)
         {
-            new User
-            {
-                FirstName = "admin",
-                LastName = "developer",
-                Mail = "deneme@gmail.com",
-                Password = "password",
-                isAdmin = true
-            }
-        };
+            _userDal = userDal;
+        }
 
         [HttpGet]
         public IActionResult Index()
@@ -30,10 +26,10 @@ namespace muhtas2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(User p)
+        public async Task<IActionResult> Index(User user)
         {
-            User user = writers.Where(x => x.Mail == p.Mail && x.Password == p.Password).FirstOrDefault();
-            if (user == null)
+            int result = await _userDal.IsAdminUser(user);
+            if (result == 1)
                 return NotFound();
 
             var claims = new List<Claim> {
@@ -54,7 +50,7 @@ namespace muhtas2.Controllers
             await HttpContext.SignOutAsync();
             HttpContext.Session.Clear();
 
-            return RedirectToAction("Index", "Home");
+            return Ok();
         }
     }
 }
