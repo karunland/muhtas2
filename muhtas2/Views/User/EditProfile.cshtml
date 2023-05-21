@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "EditProfile";
+    Layout = "~/Views/Shared/myLayout.cshtml";
+}
+@model Entity.DbModel.User
+
+@{
+    var model = Model;
+    var i = 1;
+}
+
+<div class="c1 container grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Edit Profile</h4>
+            <form class="forms-sample" asp-action="EditProfile" enctype="multipart/form-data">
+                <input hidden asp-for="@Model.Id" />
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="WriterName">First Name</label>
+                        <input type="text" class="form-control" asp-for="@Model.FirstName" placeholder="FirstName">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="WriterName">Last Name</label>
+                        <input type="text" class="form-control" asp-for="@Model.LastName" placeholder="LastName">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="WriterMail">Email address</label>
+                    <input type="email" class="form-control" asp-for="@Model.Mail" placeholder="Email" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="WriterPassword">Password</label>
+                    <input type="password" class="form-control" asp-for="@Model.Password" placeholder="Password" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="WriterImage">File upload</label>
+                    <input type="file" autocomplete="off" />
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Save</button>
+                <button class="btn btn-light">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

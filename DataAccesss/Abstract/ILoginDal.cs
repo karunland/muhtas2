@@ -9,6 +9,10 @@ namespace DataAccesss.Abstract
 {
     public interface ILoginDal
     {
-        public User GetLoginUser();
+        /// <summary>
+        /// gets logged in user from httpcontext
+        /// </summary>
+        /// <returns></returns>
+        Task<User> GetLoginUser();
     }
 }
