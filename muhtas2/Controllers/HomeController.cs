@@ -25,7 +25,7 @@ namespace muhtas2.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Devices()
+        public async Task<IActionResult> About()
         {
             return View();
         }

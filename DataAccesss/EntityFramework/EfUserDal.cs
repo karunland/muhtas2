@@ -36,7 +36,7 @@ namespace DataAccesss.EntityFramework
             }
         }
 
-        public async Task<int> IsAdminUser(User Model)
+        public async Task<int> IsUser(User Model)
         {
             using (var context = new Context())
             {

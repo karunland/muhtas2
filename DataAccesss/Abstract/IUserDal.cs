@@ -28,6 +28,6 @@ namespace DataAccesss.Abstract
         /// </summary>
         /// <param name="Model"></param>
         /// <returns></returns>
-        Task<int> IsAdminUser(User Model);
+        Task<int> IsUser(User Model);
     }
 }
