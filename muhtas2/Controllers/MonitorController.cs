@@ -101,6 +101,23 @@ namespace muhtas2.Controllers
             else
                 jsonObject["biggest"] = "green";
 
+            Mcu mitem = new Mcu
+            {
+                Blue = (UInt32)(jsonObject?["blue"] ?? 0),
+                Red = (UInt32)(jsonObject?["red"] ?? 0),
+                Green = (UInt32)(jsonObject?["green"] ?? 0),
+                Distance = (UInt32)(jsonObject?["distance"] ?? 0)
+            };
+            // due to default server hours 
+            mitem.CreatedTime = DateTime.Now.AddHours(3);
+
+            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
+            var client = new MongoClient(settings);
+            var database = client.GetDatabase("sensordemo");
+            var collection = database.GetCollection<Mcu>("DemoMcuCollection");
+
+            collection.InsertOne(mitem);
+
             return Ok(JsonConvert.SerializeObject(jsonObject));
         }
     }
