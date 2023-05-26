@@ -1,4 +1,51 @@
-﻿
-<div class="h1">
-    Project Details
+﻿<div class="card card-body mt-2">
+    <div class="row mt-2">
+        <div class="col-md-12 mt-2">
+            <h3>About Project</h3>
+            <p> The main objective of our project is to develop an IoT solution that detects the color and measures the
+                distance of the product on conveyor belts where colored products pass in the industry. Thanks to this
+                solution, color and distance information will be sent to the server via STM32F103C8T6 microcontroller
+                equipped with Wiznet5500.</p>
+
+            <p>The main components of our project are as follows:</p>
+            <ul>
+                <li>STM32F103C8T6: This microcontroller is a central part of the project. It is programmed using the C
+                    programming language and processes the data it receives from the HCSR04 ultrasonic sensor and the
+                    TCS3200 color sensor. It also performs the function of sending data to the server using TCP/IP
+                    protocols with the Wiznet5500.</li>
+                <li>Wiznet5500: This Ethernet controller is used to communicate with the STM32F103C8T6. The Wiznet5500
+                    enables the project to connect to the internet and performs the function of sending data using UDP
+                    sockets.</li>
+                <li>HCSR04: This ultrasonic sensor measures distance using reflected sound waves that bounce back from
+                    the product on the conveyor belt. It is controlled by STM32F103C8T6 and the distance information
+                    obtained is transmitted to the server.</li>
+                <li>TCS3200: This color sensor detects the color of the product on the conveyor belt. It is controlled
+                    by the STM32F103C8T6 used in our project and the color information obtained is transmitted to the
+                    server.</li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <h3>Kullanılan Teknolojiler</h3>
+            <p>Projede kullanılan teknolojiler:</p>
+            <ul>
+                <li>C Language</li>
+                <li>UDP Socket</li>
+                <li>ASP.NET Core</li>
+            </ul>
+            <p>Application developed with ASP.NET Core is used to monitor the incoming data.</p>
+            <p>This IoT solution offers many benefits in the field of industrial automation. Automatic tracking and
+                sorting of colored products optimizes production processes and reduces human error. At the same time,
+                thanks to data collection and analysis capabilities, production efficiency can be increased and
+                production errors can be detected faster. As a result, this project provides an IoT-based solution for
+                color product tracking and grading, an important component of industrial automation. With the
+                integration of components such as STM32F103C8T6, Wiznet5500, HCSR04 and TCS3200, the data obtained is
+                processed on the server through an application developed with ASP.NET Core, contributing to the
+                optimization of industrial processes.</p>
+        </div>
+    </div>
 </div>
+<style>
+    p {
+        margin-top: 1rem;
+    }
+</style>
