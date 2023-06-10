@@ -2,6 +2,13 @@
 
 Bu proje, Mühendislik Tasarımı 2 dersi kapsamında gerçekleştirilen bir IoT (Internet of Things) projesidir. Proje, konveyör bandı üzerinde hareket eden paketlerin renk ve mesafe bilgilerini toplayabilen bir IoT cihazı ve bu verileri işlemek ve görüntülemek için bir web arayüzü oluşturmayı hedeflemektedir.
 
+<div style="display: inline-block;">
+<img src="images/about.png" alt="Resim Açıklaması">
+<img src="images/hardware.jpg" alt="Resim Açıklaması">
+<img src="images/main.png" alt="Resim Açıklaması">
+<img src="images/settings.png" alt="Resim Açıklaması">
+</div>
+
 ## Proje Komponentleri
 
 1. **STM32F103T8C6 MCU:** Bu mikrodenetleyici birim, tüm sensörler arasındaki iletişimi ve veri toplama işlemlerini yönetir.
