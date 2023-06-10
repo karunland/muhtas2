@@ -3,10 +3,10 @@
 Bu proje, Mühendislik Tasarımı 2 dersi kapsamında gerçekleştirilen bir IoT (Internet of Things) projesidir. Proje, konveyör bandı üzerinde hareket eden paketlerin renk ve mesafe bilgilerini toplayabilen bir IoT cihazı ve bu verileri işlemek ve görüntülemek için bir web arayüzü oluşturmayı hedeflemektedir.
 
 <div style="display: inline-block;">
-<img src="images/about.png" alt="Resim Açıklaması" width="400" height="auto">
-<img src="images/hardware.jpg" alt="Resim Açıklaması" width="400" height="auto">
-<img src="images/main.png" alt="Resim Açıklaması" width="400" height="auto">
-<img src="images/settings.png" alt="Resim Açıklaması" width="400" height="auto">
+<img src="images/main.png" alt="Resim Açıklaması" width="450" height="auto">
+<img src="images/hardware.jpg" alt="Resim Açıklaması" width="450" height="auto">
+<img src="images/about.png" alt="Resim Açıklaması" width="450" height="auto">
+<img src="images/settings.png" alt="Resim Açıklaması" width="450" height="auto">
 </div>
 
 ## Proje Komponentleri
