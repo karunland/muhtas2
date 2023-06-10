@@ -20,7 +20,13 @@ namespace DataAccesss.EntityFramework
                 if (Model.Id == 0)
                     await context.AddAsync(Model);
                 else
-                    context.User.Update(Model);
+                {
+                    var person = context.User.Where(x => x.Id == Model.Id).FirstOrDefault();
+                    person.FirstName = Model.FirstName;
+                    person.LastName = Model.LastName;
+                    person.Mail = Model.Mail;
+                    context.User.Update(person);
+                }
                 await context.SaveChangesAsync();
             }
             return 0;

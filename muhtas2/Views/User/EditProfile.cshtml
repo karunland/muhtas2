@@ -1,13 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "EditProfile";
+    ViewData["Title"] = "Edit Profile";
     Layout = "~/Views/Shared/myLayout.cshtml";
 }
 @model Entity.DbModel.User
 
-@{
-    var model = Model;
-    var i = 1;
-}
 
 <div class="c1 container grid-margin stretch-card">
     <div class="card">
@@ -31,15 +27,6 @@
                     <label for="WriterMail">Email address</label>
                     <input type="email" class="form-control" asp-for="@Model.Mail" placeholder="Email" autocomplete="off">
                 </div>
-                <div class="form-group">
-                    <label for="WriterPassword">Password</label>
-                    <input type="password" class="form-control" asp-for="@Model.Password" placeholder="Password" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="WriterImage">File upload</label>
-                    <input type="file" autocomplete="off" />
-                </div>
-
                 <button type="submit" class="btn btn-primary mr-2">Save</button>
                 <button class="btn btn-light">Cancel</button>
             </form>

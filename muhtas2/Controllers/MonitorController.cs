@@ -1,18 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using DataAccesss.Abstract;
-using Newtonsoft.Json.Linq;
+﻿using Entity.DbModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Sockets;
-using Microsoft.AspNetCore.Http;
-using Calabonga.Mvc.ApiExtensions;
-using System.Text.Json.Nodes;
-using DataAccesss.EntityFramework;
-using DataAccesss.Concrete;
-using Entity.DbModel;
-using MongoDB.Driver;
-using Microsoft.AspNetCore.Authorization;
-using MongoDB.Driver.Linq;
 
 namespace muhtas2.Controllers
 {
@@ -72,12 +65,12 @@ namespace muhtas2.Controllers
             else
                 jsonObject["biggest"] = "green";
 
-            //var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
-            //var client = new MongoClient(settings);
-            //var database = client.GetDatabase("test");
-            //var collection = database.GetCollection<Mcu>("Mcu");
+            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
+            var client = new MongoClient(settings);
+            var database = client.GetDatabase("test");
+            var collection = database.GetCollection<Mcu>("Mcu");
 
-            //collection.InsertOne(mitem);
+            collection.InsertOne(mitem);
 
             return Ok(JsonConvert.SerializeObject(jsonObject));
         }
@@ -111,15 +104,14 @@ namespace muhtas2.Controllers
             // due to default server hours 
             mitem.CreatedTime = DateTime.Now.AddHours(3);
 
-            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
-            var client = new MongoClient(settings);
-            var database = client.GetDatabase("sensordemo");
-            var collection = database.GetCollection<Mcu>("DemoMcuCollection");
+            //var settings = MongoClientSettings.FromConnectionString("mongodb+srv://harun:harun@cluster0.xubll8l.mongodb.net/?retryWrites=true&w=majority");
+            //var client = new MongoClient(settings);
+            //var database = client.GetDatabase("sensordemo");
+            //var collection = database.GetCollection<Mcu>("DemoMcuCollection");
 
-            collection.InsertOne(mitem);
+            //collection.InsertOne(mitem);
 
             return Ok(JsonConvert.SerializeObject(jsonObject));
         }
     }
 }
-
