@@ -1,6 +1,7 @@
 # Mühendislik Tasarımı 2 IoT Projesi
 
 Bu proje, Mühendislik Tasarımı 2 dersi kapsamında gerçekleştirilen bir IoT (Internet of Things) projesidir. Proje, konveyör bandı üzerinde hareket eden paketlerin renk ve mesafe bilgilerini toplayabilen bir IoT cihazı ve bu verileri işlemek ve görüntülemek için bir web arayüzü oluşturmayı hedeflemektedir.
+### Canlı versiyon aktif => <a href="http://karunland.eastus.cloudapp.azure.com:5005/" target="_blank">MuhTas2</a> 
 
 <div style="display: inline-block;">
 <img src="images/main.png" alt="Resim Açıklaması" width="410" height="auto">
