@@ -19,7 +19,7 @@ namespace DataAccesss.EntityFramework
             {
                 var item = await context.MonitorShow.FirstOrDefaultAsync();
                 if (item == null)
-                    return new MonitorShow() { RgbSection = true, DistanceSection = true };
+                    return new MonitorShow() { RgbSection = true, DistanceSection = true, DetailsSection = true };
                 return item;
             }
         }

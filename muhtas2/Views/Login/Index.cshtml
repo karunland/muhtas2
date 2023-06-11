@@ -38,17 +38,17 @@
                                     </div>
                                     <form class="user" method="Post" asp-action="Index" asp-controller="Login">
                                         <div class="form-group">
-                                            <input type="email" asp-for="@Model.Mail"  class="form-control form-control-user"
-                                                    aria-describedby="emailHelp"
+                                            <input type="email" asp-for="@Model.Mail" class="form-control form-control-user"
+                                                   aria-describedby="emailHelp"
                                                    placeholder="Enter Email Address..." value="deneme@gmail.com">
                                         </div>
-                                        @Html.ValidationMessageFor(x=>x.Mail)
+                                        @Html.ValidationMessageFor(x => x.Mail)
 
                                         <div class="form-group">
                                             <input type="password" asp-for="@Model.Password" class="form-control form-control-user"
-                                                    placeholder="Password" value="password">
+                                                   placeholder="Password" value="password">
                                         </div>
-                                        @Html.ValidationMessageFor(x=>x.Password)
+                                        @Html.ValidationMessageFor(x => x.Password)
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login

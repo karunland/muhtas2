@@ -45,7 +45,7 @@ namespace muhtas2.Controllers
             }
 
             if (result == 1)
-                return NotFound();
+                return RedirectToAction("Index", "Login");
 
             var claims = new List<Claim> {
                     new Claim (ClaimTypes.Name, user.Mail)

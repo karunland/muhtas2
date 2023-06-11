@@ -27,7 +27,7 @@ namespace muhtas2.Controllers
         {
             int result = await _userDal.Add(person);
             if (result == 0)
-                return View();
+                return RedirectToAction("Index", "Login");
             return BadRequest(result);
         }
     }

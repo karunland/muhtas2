@@ -23,10 +23,9 @@ builder.Services.AddMvc(config =>
 builder.Services.AddMvc();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped<IHomePageDal, EfHomePageDal>();
-builder.Services.AddScoped<IUserDal, EfUserDal>();
-
-builder.Services.AddTransient<ILoginDal, EfLoginDal>();
+builder.Services.AddScoped<IHomePageDal, EfHomePageNoDbDal>();
+builder.Services.AddScoped<IUserDal, EfUserNoDbDal>();
+builder.Services.AddTransient<ILoginDal, EfLoginNoDbDal>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     x => x.LoginPath = "/Login/Index"
