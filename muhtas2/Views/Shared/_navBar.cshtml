@@ -2,7 +2,11 @@
 @using Entity.DbModel
 @inject ILoginDal tokenService;
 @{
-    User LoginUser = tokenService.GetLoginUser().GetAwaiter().GetResult() ?? new Entity.DbModel.User() { isAdmin = false };
+    User LoginUser = tokenService.GetLoginUser();
+    if (LoginUser == null)
+    {
+        LoginUser = new User { isAdmin = false };
+    }
 }
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary topbar mb-4 static-top shadow " style="background-color:black !important;">
@@ -10,11 +14,7 @@
 
         <a class="navbar-brand" href="/Home">MuhTas-2</a>
 
-        @if (LoginUser.Id > 0)
-        {
-            <ul class="navbar-nav">
-            </ul>
-        }
+        
         <button class="navbar-toggler" type="button"
                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" data-toggle="collapse" aria-expanded="false"
                 aria-label="Toggle navigation">

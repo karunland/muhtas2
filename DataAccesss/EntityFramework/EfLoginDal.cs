@@ -19,7 +19,7 @@ namespace DataAccesss.EntityFramework
             _context = context;
         }
 
-        public async Task<User> GetLoginUser()
+        public User GetLoginUser()
         {
             var mail = _context.HttpContext?.User;
             var person = mail.Claims.FirstOrDefault();
@@ -27,7 +27,7 @@ namespace DataAccesss.EntityFramework
                 return new User { isAdmin = false, Id = 0 };
             using (var context = new Context())
             {
-                var person1 = await context.User.Where(x => x.Mail == person.Value).FirstOrDefaultAsync();
+                var person1 =  context.User.Where(x => x.Mail == person.Value).FirstOrDefault();
                 return person1;
             }
         }

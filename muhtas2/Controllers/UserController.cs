@@ -24,7 +24,7 @@ namespace muhtas2.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProfile()
         {
-            var item = await _loginDal.GetLoginUser();
+            var item = _loginDal.GetLoginUser();
             return View(item);
         }
 

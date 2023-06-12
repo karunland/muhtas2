@@ -34,6 +34,7 @@ namespace DataAccesss.EntityFramework
                 p.Mail = Model.Mail;
                 return 0;
             }
+            Model.Id = _user.Count + 1;
             _user.Add(Model);
             return 0;
         }

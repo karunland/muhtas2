@@ -18,7 +18,7 @@ namespace DataAccesss.EntityFramework
             _context = context;
         }
 
-        public async Task<User> GetLoginUser()
+        public User GetLoginUser()
         {
             var mail = _context.HttpContext?.User;
             var person = mail.Claims.FirstOrDefault();

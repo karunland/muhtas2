@@ -13,6 +13,6 @@ namespace DataAccesss.Abstract
         /// gets logged in user from httpcontext
         /// </summary>
         /// <returns></returns>
-        Task<User> GetLoginUser();
+        User GetLoginUser();
     }
 }

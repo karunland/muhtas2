@@ -16,8 +16,10 @@ RUN dotnet publish muhtas2/*.csproj -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
+# ENV ASPNETCORE_URLS=http://0.0.0.0:5005;http://0.0.0.0:5010;
 ENV ASPNETCORE_URLS=http://0.0.0.0:5005
 EXPOSE 5005
+# EXPOSE 5010
 
 # Set the entry point
 ENTRYPOINT ["dotnet", "muhtas2.dll"]
