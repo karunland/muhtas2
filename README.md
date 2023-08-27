@@ -33,3 +33,4 @@ Web arayüzü ASP.NET Core 6.0 kullanılarak geliştirilmiştir. Veritabanı ola
 
 Proje dosyalarını GitHub'dan indirin ve lokal olarak kaydedin. STM32 için gerekli olan kodları MCU'ya yükleyin. Web sunucusunu başlatmak için ASP.NET Core uygulamasını çalıştırın. 
 
+![](https://komarev.com/ghpvc/?username=karunland/muhtas2&color=green)
