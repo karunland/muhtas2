@@ -4,7 +4,7 @@ Bu proje, Mühendislik Tasarımı 2 dersi kapsamında gerçekleştirilen bir IoT
 
 <br />
 
-#### Canlı versiyon aktif => <a href="http://karunland.eastus.cloudapp.azure.com:5005/" target="_blank">karunland.eastus.cloudapp.azure.com:5005/</a> 
+#### Canlı versiyon aktif => <a href="https://muhtas2.karunlander.net" target="_blank">muhtas2.karunlander.net/</a> 
  <br />
 <div style="display: inline-block;">
 <img src="images/main.png" alt="Resim Açıklaması" width="410" height="auto">
