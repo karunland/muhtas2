@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Net;
 using DataAccesss.EntityFramework;
-using DataAccesss.Abstract;
+using DataAccesss.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// add db context inmemory
+builder.Services.AddDbContext<Context>(options =>
+    options.UseInMemoryDatabase("muhtas2"));
 
 builder.Services.AddSession();
 
@@ -23,22 +26,19 @@ builder.Services.AddMvc(config =>
 builder.Services.AddMvc();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped<IHomePageDal, EfHomePageNoDbDal>();
-builder.Services.AddScoped<IUserDal, EfUserNoDbDal>();
-builder.Services.AddTransient<ILoginDal, EfLoginNoDbDal>();
+builder.Services.AddScoped<EfHomePageDal>();
+builder.Services.AddScoped<EfUserDal>();
+builder.Services.AddTransient<EfLoginDal>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     x => x.LoginPath = "/Login/Index"
 );
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

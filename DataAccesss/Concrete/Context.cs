@@ -12,15 +12,10 @@ namespace DataAccesss.Concrete
 {
     public class Context : DbContext
     {
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("server=(localdb)\\MSSQLLocalDB;" +
-        //        "Initial Catalog=muhtas2;" +
-        //        "integrated security=true;");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        public Context(DbContextOptions<Context> options) : base(options)
+        {
+        }
         public DbSet<User> User { get; set; }
         public DbSet<MonitorShow> MonitorShow { get; set; }
-        //public DbSet<Mcu> Mcu { get; set; }
     }
 }

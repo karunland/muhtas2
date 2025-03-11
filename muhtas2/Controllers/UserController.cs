@@ -1,20 +1,11 @@
-﻿using DataAccesss.Abstract;
+﻿using DataAccesss.EntityFramework;
 using Entity.DbModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace muhtas2.Controllers
 {
-    public class UserController : Controller
+    public class UserController(EfUserDal _userDal, EfLoginDal _loginDal) : Controller
     {
-        private readonly IUserDal _userDal;
-        private readonly ILoginDal _loginDal;
-
-        public UserController(IUserDal userDal, ILoginDal loginDal)
-        {
-            _userDal = userDal;
-            _loginDal = loginDal;
-        }
-
         [HttpGet]
         public async Task<IActionResult> Details()
         {

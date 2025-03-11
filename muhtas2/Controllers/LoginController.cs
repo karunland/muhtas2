@@ -1,27 +1,17 @@
-﻿using DataAccesss.Abstract;
-using DataAccesss.Concrete;
+﻿using DataAccesss.EntityFramework;
 using DataAccesss.Validations;
 using Entity.DbModel;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver.Core.Operations;
 using System.Security.Claims;
-using ZstdSharp.Unsafe;
 
 namespace muhtas2.Controllers
 {
     [AllowAnonymous]
-    public class LoginController : Controller
+    public class LoginController(EfUserDal _userDal) : Controller
     {
-        private readonly IUserDal _userDal;
-        public LoginController(IUserDal userDal)
-        {
-            _userDal = userDal;
-        }
-
         [HttpGet]
         public IActionResult Index()
         {

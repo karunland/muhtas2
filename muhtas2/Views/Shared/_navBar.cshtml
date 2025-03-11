@@ -1,6 +1,6 @@
-﻿@using DataAccesss.Abstract
+﻿@using DataAccesss.EntityFramework
 @using Entity.DbModel
-@inject ILoginDal tokenService;
+@inject EfLoginDal tokenService;
 @{
     User LoginUser = tokenService.GetLoginUser();
     if (LoginUser == null)

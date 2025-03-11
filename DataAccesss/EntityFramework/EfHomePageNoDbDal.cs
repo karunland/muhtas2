@@ -1,28 +1,21 @@
-﻿using DataAccesss.Abstract;
-using Entity.DbModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entity.DbModel;
 
-namespace DataAccesss.EntityFramework
+namespace DataAccesss.EntityFramework;
+
+public class EfHomePageNoDbDal
 {
-    public class EfHomePageNoDbDal : IHomePageDal
+    public static MonitorShow _monitorShow = new MonitorShow() { RgbSection = true, DistanceSection = true, DetailsSection = true };
+    public async Task<int> AddHomePageSettings(MonitorShow model)
     {
-        public static MonitorShow _monitorShow = new MonitorShow() { RgbSection = true, DistanceSection = true, DetailsSection = true };
-        public async Task<int> AddHomePageSettings(MonitorShow model)
-        {
-            if (model == null)
-                return 1;
-            _monitorShow.DistanceSection = model.DistanceSection;
-            _monitorShow.RgbSection = model.RgbSection;
-            return 0;
-        }
+        if (model == null)
+            return 1;
+        _monitorShow.DistanceSection = model.DistanceSection;
+        _monitorShow.RgbSection = model.RgbSection;
+        return 0;
+    }
 
-        public async Task<MonitorShow> GetHomePageSettings()
-        {
-            return _monitorShow;
-        }
+    public async Task<MonitorShow> GetHomePageSettings()
+    {
+        return _monitorShow;
     }
 }

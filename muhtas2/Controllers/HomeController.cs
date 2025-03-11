@@ -1,21 +1,13 @@
-﻿using DataAccesss.Abstract;
-using DataAccesss.Concrete;
+﻿using DataAccesss.EntityFramework;
 using Entity.DbModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using muhtas2.Models;
-using System.Diagnostics;
 
 namespace muhtas2.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(EfHomePageDal _homePageDal) : Controller
     {
-        private readonly IHomePageDal _homePageDal;
-        public HomeController(IHomePageDal homePageDal)
-        {
-            _homePageDal = homePageDal;
-        }
-        
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
